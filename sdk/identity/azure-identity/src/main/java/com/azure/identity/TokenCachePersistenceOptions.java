@@ -3,6 +3,7 @@
 package com.azure.identity;
 
 import com.azure.core.annotation.Fluent;
+import com.microsoft.aad.msal4j.ITokenCacheAccessAspect;
 
 /**
  * Represents the Persistence Token Cache options used to setup the persistent access token cache.
@@ -16,6 +17,7 @@ import com.azure.core.annotation.Fluent;
 public final class TokenCachePersistenceOptions {
     private boolean unencryptedStorageAllowed;
     private String name;
+    private ITokenCacheAccessAspect tokenCacheAccessAspect = null;
 
     /**
      * Constructs an instance of TokenCachePersistenceOptions.
@@ -63,4 +65,25 @@ public final class TokenCachePersistenceOptions {
     public String getName() {
         return this.name;
     }
+
+    /**
+     * Set a tokenCacheAspect that ist notified before and after each access to the tokenCache.
+     *
+     * @param tokenCacheAccessAspect The ITokenCacheAccessAspect to be notified.
+     * @return the updated instance of the cache.
+     */
+    public TokenCachePersistenceOptions setTokenCacheAccessAspect(ITokenCacheAccessAspect tokenCacheAccessAspect) {
+        this.tokenCacheAccessAspect = tokenCacheAccessAspect;
+        return this;
+    }
+
+    /**
+     * Get the tokenCacheAspect that is currently set.
+     *
+     * @return tokenCacheAccessAspect The ITokenCacheAccessAspect currently set.
+     */
+    public ITokenCacheAccessAspect getTokenCacheAccessAspect() {
+        return tokenCacheAccessAspect;
+    }
+
 }
