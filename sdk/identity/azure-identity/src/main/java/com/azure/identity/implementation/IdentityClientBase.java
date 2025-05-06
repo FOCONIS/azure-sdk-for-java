@@ -292,7 +292,7 @@ public abstract class IdentityClientBase {
         ConfidentialClientApplication confidentialClientApplication = applicationBuilder.build();
 
         if (tokenCache != null) {
-            tokenCache.registerCache();
+            tokenCache.registerCache(tokenCachePersistenceOptions.getTokenCacheAccessAspect());
         }
         return confidentialClientApplication;
     }
@@ -388,7 +388,7 @@ public abstract class IdentityClientBase {
         PublicClientApplication publicClientApplication = builder.build();
 
         if (tokenCache != null) {
-            tokenCache.registerCache();
+            tokenCache.registerCache(tokenCachePersistenceOptions.getTokenCacheAccessAspect());
         }
         return publicClientApplication;
     }

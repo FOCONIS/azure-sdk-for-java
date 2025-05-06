@@ -36,7 +36,7 @@ public class PersistentTokenCacheImpl implements ITokenCacheAccessAspect {
     private static final ClientLogger LOGGER = new ClientLogger(PersistentTokenCacheImpl.class);
     private boolean allowUnencryptedStorage;
     private String name;
-    private PersistenceTokenCacheAccessAspect cacheAccessAspect;
+    private ITokenCacheAccessAspect cacheAccessAspect;
 
     private boolean caeEnabled;
 
@@ -55,7 +55,11 @@ public class PersistentTokenCacheImpl implements ITokenCacheAccessAspect {
         return this;
     }
 
-    boolean registerCache() {
+    boolean registerCache(ITokenCacheAccessAspect cacheAspect) {
+        if (cacheAspect != null) {
+            this.cacheAccessAspect = cacheAspect;
+            return true;
+        }
         try {
             PersistenceSettings persistenceSettings = getPersistenceSettings();
             cacheAccessAspect = new PersistenceTokenCacheAccessAspect(persistenceSettings);
