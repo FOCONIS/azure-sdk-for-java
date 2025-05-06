@@ -1,3 +1,21 @@
+# Foconis Build Instructions
+
+```bash
+# Set Version to next version with
+mvn versions:set  -DgenerateBackupPoms=false -DnewVersion=1.16.0-focx
+# commit everything
+git add '*.xml'
+git commit -m "bump version to release"
+git tag 1.16.0-focx
+
+#build and deploy it
+mvn clean deploy -DskipTests -DaltDeploymentRepository=foconis-release::https://mvnrepo.foconis.de/repository/release/
+
+mvn versions:set  -DgenerateBackupPoms=false -DnewVersion=1.16.0-focx+1-SNAPSHOT
+git add '*.xml'
+git commit -m "bump version to snapshot"
+```
+
 # Azure Identity client library for Java
 
 The Azure Identity library provides [Microsoft Entra ID](https://learn.microsoft.com/entra/fundamentals/whatis) ([formerly Azure Active Directory](https://learn.microsoft.com/entra/fundamentals/new-name)) token authentication support across the Azure SDK. It provides a set of [TokenCredential](https://learn.microsoft.com/java/api/com.azure.core.credential.tokencredential?view=azure-java-stable) implementations that can be used to construct Azure SDK clients that support Microsoft Entra token authentication.
